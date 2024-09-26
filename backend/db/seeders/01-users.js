@@ -18,22 +18,76 @@ module.exports = {
       options.tableName = "Users";
       return queryInterface.bulkInsert(options, [
         {
+          firstName: 'Jeremy',
+          lastName: 'Smitt',
           email: 'demo@user.io',
+          role: 'Supervisor',
           username: 'Demo-lition',
           hashedPassword: bcrypt.hashSync('password'),
-          profileImg: ''
+          
         },
         {
+          firstName: 'John',
+          lastName: 'Jerome',
+          role: 'Manager',
           email: 'user1@user.io',
           username: 'FakeUser1',
           hashedPassword: bcrypt.hashSync('password2'),
-          profileImg: ''
+          
         },
         {
+          firstName: 'Gavin',
+          lastName: 'Smith',
+          role: 'Manager',
           email: 'user2@user.io',
           username: 'FakeUser2',
           hashedPassword: bcrypt.hashSync('password3'),
-          profileImg: ''
+          
+        },
+        {
+          firstName: 'Kelly',
+          lastName: 'Mcbride',
+          role: 'Employee',
+          email: 'user3@user.io',
+          username: 'FakeUser3',
+          hashedPassword: bcrypt.hashSync('password4'),
+          
+        },
+        {
+          firstName: 'Catniss',
+          lastName: 'Brown',
+          role: 'Employee',
+          email: 'user4@user.io',
+          username: 'FakeUser4',
+          hashedPassword: bcrypt.hashSync('password5'),
+          
+        },
+        {
+          firstName: 'Shelby',
+          lastName: 'Watpick',
+          role: 'Employee',
+          email: 'user5@user.io',
+          username: 'FakeUser5',
+          hashedPassword: bcrypt.hashSync('password6'),
+          
+        },
+        {
+          firstName: 'Shawn',
+          lastName: 'Williams',
+          role: 'Employee',
+          email: 'user6@user.io',
+          username: 'FakeUser6',
+          hashedPassword: bcrypt.hashSync('password7'),
+          
+        },
+        {
+          firstName: 'George',
+          lastName: 'Anders',
+          role: 'Employee',
+          email: 'user2@user.io',
+          username: 'FakeUser2',
+          hashedPassword: bcrypt.hashSync('password8'),
+          
         }
       ], {})
     },

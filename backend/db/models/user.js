@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Shift, {foreignKey: 'userId', as: 'User'})
+      User.hasMany(models.Comment, {foreignKey: 'userId'})
     }
   }
   User.init({
@@ -22,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         len: [5, 20]
       }
     },
-    firstName: {
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
