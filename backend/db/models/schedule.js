@@ -1,5 +1,5 @@
 'use strict';
-import { AllOperator } from '../../node_modules/sequelize/types/model.d';
+
 const {
   Model
 } = require('sequelize');
@@ -12,15 +12,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Schedule.hasMany(models.Shift, {foreignKey: 'scheduleId', as: 'Schedule'})
+      Schedule.hasMany(models.Shift, {foreignKey: 'scheduleId', as: 'Shifts'})
     }
   }
   Schedule.init({
-    day: DataTypes.DATE,
-    allowNull: false,
+    day: {
+      type: DataTypes.DATE,
+      allowNull: false, 
+    }
   }, {
     sequelize,
     modelName: 'Schedule',
+    
   });
+
   return Schedule;
 };

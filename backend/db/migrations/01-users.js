@@ -30,7 +30,7 @@ module.exports = {
       },
       role: {
         allowNull: false,
-        type: Sequelize.STRING(20)
+        type: Sequelize.ENUM('Supervisor', 'Manager', 'Employee')
       },
       email: {
         type: Sequelize.STRING(256),

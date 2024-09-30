@@ -1,5 +1,5 @@
 'use strict';
-import BelongsTo from '../../node_modules/sequelize/types/associations/belongs-to.d';
+
 const {
   Model,
   ForeignKeyConstraintError
@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Shift.BelongsTo(models.Schedule, {ForeignKey: 'scheduleId', as: 'Schedule'})
-      Shift.hasMany(models.User, {foreignKey: 'userId', as: 'User'})
-      Shift.hasMany(models.Comment, {ForeignKey: 'shiftId'})
+      Shift.belongsTo(models.Schedule, {foreignKey: 'scheduleId', as: 'Schedule'})
+      Shift.belongsTo(models.User, {foreignKey: 'userId', as: 'User'})
+      Shift.hasMany(models.Comment, {foreignKey: 'shiftId', as: 'comments'})
     }
   }
   Shift.init({
@@ -31,9 +31,15 @@ module.exports = (sequelize, DataTypes) => {
     scheduleId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      
 
     },
-    userId: DataTypes.INTEGER
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      
+    
+    }
   }, {
     sequelize,
     modelName: 'Shift',

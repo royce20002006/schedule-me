@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     role: {
+      type: DataTypes.ENUM('Supervisor', 'Manager', 'Employee'),
       allowNull: false,
       validate: {
         len: [4, 30]
