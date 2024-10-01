@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    ShiftId: {
+    shiftId: {
       type: DataTypes.INTEGER,
       allowNull: false
     }

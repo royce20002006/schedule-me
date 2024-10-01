@@ -19,7 +19,7 @@ module.exports = {
         references: {model: 'Users', key: 'id'},
         onDelete: 'cascade'
       },
-      ShiftId: {
+      shiftId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {model: 'Shifts', key: 'id'},

@@ -15,7 +15,7 @@ module.exports = {
 
 
     up: async (queryInterface, Sequelize) => {
-      options.tableName = "Shifts";
+      options.tableName = "Comments";
       return queryInterface.bulkInsert(options, [
         {
           body: 'I really need off at 13:00 because i have a doctors appointment',
