@@ -11,7 +11,8 @@ module.exports = {
       },
       day: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        unique: true
       },
       createdAt: {
         allowNull: false,
