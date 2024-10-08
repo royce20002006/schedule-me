@@ -64,5 +64,20 @@ router.get('/', (req, res) => {
     } else return res.json({ user: null });
 });
 
+router.get('/all', async (req, res, next) => {
+    try {
+        console.log('hello in thunk')
+        const users = await User.findAll();
+        if (users) {
+            return res.json(users)
+        } else {
+            throw users
+        }
+        
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 module.exports = router;
