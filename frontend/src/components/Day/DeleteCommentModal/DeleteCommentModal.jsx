@@ -4,12 +4,11 @@ import { useModal } from "../../../context/Modal";
 import { useParams } from "react-router-dom";
 import { deleteShiftThunk } from "../../../redux/shift";
 import { getSchedulesThunk } from "../../../redux/schedule";
+import { deleteCommentThunk, readCommentThunk } from "../../../redux/comment";
 
 
-function DeleteCommentModal({shift}) {
+function DeleteCommentModal({comment}) {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
   const {id } = useParams()
 
@@ -19,13 +18,13 @@ function DeleteCommentModal({shift}) {
    
 
     const serverResponse = await dispatch(
-          deleteShiftThunk(id, shift)
+          deleteCommentThunk( comment)
           
     );
     
     if (serverResponse.ok) {
         closeModal();
-        await dispatch(getSchedulesThunk())
+        await dispatch(readCommentThunk())
         
     } else {
         setErrors(serverResponse);
@@ -34,10 +33,10 @@ function DeleteCommentModal({shift}) {
 
   return (
     <>
-      <h1>Delete This Shift</h1>
-      {errors.server && <p>{errors.server}</p>}
-        <button onClick={e => handleSubmit(e)}>Yes Delete the Shift</button>
-        <button onClick={e => closeModal()}>No Keep the Shift</button>
+      <h1>Delete This Comment</h1>
+      
+        <button onClick={e => handleSubmit(e)}>Yes Delete the Comment</button>
+        <button onClick={e => closeModal()}>No Keep the Comment</button>
       
     </>
   );

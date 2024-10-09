@@ -1,7 +1,7 @@
 // imports
 const express = require('express');
 const { requireAuth } = require('../../utils/auth');
-const { Schedule, Shift, User } = require('../../db/models');
+const { Schedule, Shift, User, Comment } = require('../../db/models');
 
 
 const { check } = require('express-validator');
@@ -209,6 +209,48 @@ router.delete('/:id/shifts/:shiftId', requireAuth, async (req, res, next) => {
             const deletedShift = await shift.destroy();
             return res.json(shift);
         }
+
+    } catch (error) {
+        next(error)
+    }
+})
+
+//comments
+
+router.post('/:id/shifts/:shiftId/comments', requireAuth, async (req, res, next) => {
+    try {
+        const { id, shiftId } = req.params;
+        const {user} = req;
+        const { body } = req.body;
+
+        
+
+        const newComment = await Comment.create({
+            
+           body,
+            shiftId: parseInt(shiftId),
+            userId: parseInt(user.id)
+
+        }
+
+        )
+
+
+
+        if (newComment) {
+            
+            const commentWithUser = await Comment.findOne({
+                where: { id: newComment.id },
+                include: { model: User, attributes: ['id', 'firstName', 'lastName'] }
+            });
+
+            return res.json(commentWithUser);
+        } else {
+
+            throw newComment
+        }
+
+
 
     } catch (error) {
         next(error)

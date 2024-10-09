@@ -4,49 +4,40 @@ import { useModal } from "../../../context/Modal";
 import { useParams } from "react-router-dom";
 import { createShiftThunk, updateShiftThunk } from "../../../redux/shift";
 import { getSchedulesThunk } from '../../../redux/schedule';
+import { createCommentThunk, readCommentThunk, updateCommentThunk } from "../../../redux/comment";
 
 
-function NewCommentModal({shift}) {
+function NewCommentModal({shift, comment}) {
   const dispatch = useDispatch();
   const {id} = useParams()
-  const [userId, setUserId] = useState('')
-  const [startTime, setStartTime] = useState('')
-  const [endTime, setEndTime] = useState('')
-  const [value, setValue] = useState(true)
-  const [shiftForm, setShiftForm] = useState({
-    userId: '',
-    startTime: '',
-    endTime: ''
-  })
+  const [body, setBody] = useState('')
+   
 
  
   
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 useEffect(() => {
-    if(shift) {
-        setUserId(shift.userId)
-        setStartTime(shift.startTime)
-        setEndTime(shift.endTime)
+    if(comment) {
+        
+        setBody(comment.body)
+        
       }
-}, [shift])
+}, [comment])
   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (shift) {
-        const updateShift = {
-            id: shift.id,
-            userId,
-            startTime,
-            endTime,
+    if (comment) {
+        const updateComment = {
+            id: comment.id,
+            body
         }
 
         const serverResponse = await dispatch(
             
-            updateShiftThunk(
-              id,
-              updateShift
+            updateCommentThunk(
+              updateComment
             )
           );
       
@@ -56,9 +47,7 @@ useEffect(() => {
               closeModal();
             
           } else {    
-              let data = await serverResponse.json()
-              console.log(data)
-              setErrors(data.errors);
+              console.log(serverResponse)
               
            
           }
@@ -66,30 +55,33 @@ useEffect(() => {
 
     } else {
 
-        const shift = {
-            userId,
-            startTime,
-            endTime,
+        const comment = {
+            body
         }
         
     
         const serverResponse = await dispatch(
             
-          createShiftThunk(
+          createCommentThunk(
             id,
-            shift
+            shift.id,
+            comment
           )
         );
     
         if (serverResponse.ok) {
-            
-           await dispatch(getSchedulesThunk())
-            closeModal();
-          
+            const goodResponse = async () => {
+                
+                await dispatch(getSchedulesThunk())
+                closeModal();
+
+            }
+            goodResponse()
+           
         } else {    
-            let data = await serverResponse.json()
-            console.log(data)
-            setErrors(data.errors);
+            
+            console.log(serverResponse)
+            
             
          
         }
@@ -98,36 +90,19 @@ useEffect(() => {
 
   return (
     <>
-      <h1>Create a new Shift</h1>
+      <h1>Comment</h1>
       
       <form onSubmit={handleSubmit}>
         <label>
-          UserId
+          What do you Want to say: 
           <input
             type="text"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
             required
           />
         </label>
-        <label>
-          Start Time
-          <input
-            type="time"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value + ':00')}
-            required
-          />
-        </label>
-        <label>
-          End Time
-          <input
-            type="time"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value + ':00')}
-            required
-          />
-          </label>
+        
         <button type="submit">Submit</button>
       </form>
     </>
