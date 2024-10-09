@@ -23,6 +23,8 @@ const scheduleValidation = [
     handleValidationErrors
 ]
 
+
+
 router.get('/', async (req, res, next) => {
     try {
         let schedules = await Schedule.findAll({

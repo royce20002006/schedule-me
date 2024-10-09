@@ -53,6 +53,7 @@ const Splash = () => {
       </div>
       {schedules.length > 0 ? (
        schedules.map((day, idx) => (
+        
           <NavLink
             to={`/schedules/${day.id}`} 
             key={`${day}--${idx}`} 
@@ -62,6 +63,10 @@ const Splash = () => {
               {new Date(day.day).toDateString()}
             </div>
           </NavLink>
+          
+
+        
+          
         ))
       ) : (
         <div>No Schedules to Display</div>

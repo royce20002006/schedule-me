@@ -66,8 +66,9 @@ router.get('/', (req, res) => {
 
 router.get('/all', async (req, res, next) => {
     try {
-        console.log('hello in thunk')
+        
         const users = await User.findAll();
+        
         if (users) {
             return res.json(users)
         } else {
