@@ -52,16 +52,16 @@ export default function NewDayModal() {
 
   return (
     <div >
-      <div >
-        <h1 >Confirm Delete</h1>
-        <div >Select a day</div>
-        <input type="date"
+      <div className='label'>
+        <h1 className='delete'>Confirm Delete</h1>
+        <div className='day-select' >Select a day</div>
+        <input  className='input margin' type="date"
         value={day}
         onChange={e => setDay(e.target.value)} />
         {errors.day && errors.day}
 
       </div>
-        <div>
+        <div className='buttons'>
         <button   onClick={(e) => newDay(e)}>Create new Day</button>
         <button   onClick={closeModal}>Cancel</button>
 

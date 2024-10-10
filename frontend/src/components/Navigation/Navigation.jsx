@@ -5,13 +5,13 @@ import { useSelector } from "react-redux";
 
 function Navigation() {
   return (
-    <ul>
+    <ul className="profile-navs">
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-
+      <li>ScheduleMe</li>
       <li>
-        <ProfileButton />
+        <ProfileButton className='profile-button'/>
       </li>
     </ul>
   );

@@ -4,7 +4,7 @@ import { useModal } from "../../../context/Modal";
 import { useParams } from "react-router-dom";
 import { createShiftThunk, updateShiftThunk } from "../../../redux/shift";
 import { getSchedulesThunk } from '../../../redux/schedule';
-
+import './NewShiftModal.css'
 
 function NewShiftModal({shift}) {
   const dispatch = useDispatch();
@@ -98,10 +98,10 @@ useEffect(() => {
 
   return (
     <>
-      <h1>Create a new Shift</h1>
+      <h1 className="title">Create a new Shift</h1>
       
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form className="form" onSubmit={handleSubmit}>
+        <label className="label">
           UserId
           <input
             type="text"
@@ -110,25 +110,26 @@ useEffect(() => {
             required
           />
         </label>
-        <label>
+        <label className="label">
           Start Time
           <input
+          className="input"
             type="time"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value + ':00')}
             required
           />
         </label>
-        <label>
+        <label className="label">
           End Time
-          <input
+          <input className="input"
             type="time"
             value={endTime}
             onChange={(e) => setEndTime(e.target.value + ':00')}
             required
           />
           </label>
-        <button type="submit">Submit</button>
+        <button className="submit" type="submit">Submit</button>
       </form>
     </>
   );

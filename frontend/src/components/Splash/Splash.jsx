@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { getSchedulesThunk } from '../../redux/schedule';
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import NewDayModal from './NewDayModal';
+import './Splash.css'
+import OpenModalButtonTwo from '../OpenModalButtonTwo/OpenModalButtonTwo';
 
 
 
@@ -40,10 +42,10 @@ const Splash = () => {
 
   return (
     <div>
-      <h1>Weekly Schedule List</h1>
-      <div>
-      <OpenModalButton
-                  
+      <h1 className='header'>Weekly Schedule List</h1>
+      <div className='center'>
+      <OpenModalButtonTwo
+                  className='submit'
                   buttonText="New Day"
                   modalComponent={<NewDayModal />}
                   preventDefault
@@ -51,16 +53,23 @@ const Splash = () => {
                 />
      
       </div>
+      <div className='section'>
+
       {schedules.length > 0 ? (
        schedules.map((day, idx) => (
         
-          <NavLink
+          <NavLink 
             to={`/schedules/${day.id}`} 
             key={`${day}--${idx}`} 
           >
-            <div>
+            
               
-              {new Date(day.day).toDateString()}
+            <div >
+              {
+              <div className='container'>{new Date(day.day).toDateString()}
+                </div>
+              }
+              
             </div>
           </NavLink>
           
@@ -71,6 +80,8 @@ const Splash = () => {
       ) : (
         <div>No Schedules to Display</div>
       )}
+      </div>
+
     </div>
   );
 }

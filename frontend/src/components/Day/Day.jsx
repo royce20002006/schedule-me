@@ -11,6 +11,8 @@ import { readShiftThunk } from '../../redux/shift';
 import { readCommentThunk } from '../../redux/comment';
 import NewCommentModal from './NewCommentModal/NewCommentModal';
 import DeleteCommentModal from './DeleteCommentModal/DeleteCommentModal';
+import './Day.css'
+import OpenModalButtonTwo from '../OpenModalButtonTwo/OpenModalButtonTwo';
 function Day() {
   const { id } = useParams();
   const schedule = useSelector(state => state.scheduleState.byId[id])
@@ -18,7 +20,8 @@ function Day() {
   const [isLoaded, setIsLoaded] = useState()
   const shifts = useSelector(state => state.shiftState.allShifts);
   const comments = useSelector(state => state.commentState.allComments);
-  const session = useSelector(state => state.session.user)
+  const session = useSelector(state => state.session.user);
+
   useEffect(() => {
     //grab data
 
@@ -43,64 +46,71 @@ function Day() {
   return (
     <>
 
-      <div>Schedule for {new Date(schedule.day).toDateString()}</div>
+      <h1 className='heading'>Schedule for {new Date(schedule.day).toDateString()}</h1>
       {session && session.role === 'Supervisor' ?
-        <OpenModalButton
+        <OpenModalButtonTwo
+          className='new-shift'
           buttonText='New Shift'
           modalComponent={<NewShiftModal />}
           preventDefault
           stopPropagation
         /> : ''}
+      <div className='section'>
+        {shifts.filter(shift => shift.scheduleId === schedule.id).map((shift, idx) => (
+          <div className='container' key={`${shift.id}--${idx}`}>
+            <div >
+              <div className='shift' >{<div className='big'>{`${shift.User.firstName} ${shift.User.lastName} : ${shift.startTime} -- ${shift.endTime}`}</div>}
+                <div className='buttons'>
+                  <OpenModalButton
+                    buttonText='Delete Shift'
+                    modalComponent={<DeleteShiftModal shift={shift} />}
+                    preventDefault
+                    stopPropagation />
 
-      {shifts.filter(shift => shift.scheduleId === schedule.id).map((shift, idx) => (
-        <div key={`${shift.id}--${idx}`}>
-
-          <div>{`${shift.userId} ${shift.User.firstName} ${shift.User.lastName} : ${shift.startTime} -- ${shift.endTime}`}
-            <OpenModalButton
-              buttonText='Delete Shift'
-              modalComponent={<DeleteShiftModal shift={shift} />}
-              preventDefault
-              stopPropagation />
-
-            <OpenModalButton
-              buttonText='Edit Shift'
-              modalComponent={<NewShiftModal shift={shift} />}
-              preventDefault
-              stopPropagation
-            />
-
-
-            <div><OpenModalButton
-              buttonText={'New comment'}
-              modalComponent={<NewCommentModal shift={shift} />}
-              preventDefault
-              stopPropagation
-            />
-            </div>
-            <div>{comments.filter(comment => comment.shiftId === shift.id).map((comment, idx) => (
-              <div key={`${comment.id}--${idx}`}>
-                {`${comment.User.firstName} ${comment.User.lastName}: ${comment.body}`}
-                {session && session.id === comment.userId ?
-                  <>
-                    <OpenModalButton
-                      buttonText='Delete'
-                      preventDefault
-                      stopPropagation
-                      modalComponent={<DeleteCommentModal comment={comment} />}
-                    />
-                    <OpenModalButton
-                      buttonText={'Edit'}
-                      modalComponent={<NewCommentModal comment={comment} />}
-                      preventDefault
-                      stopPropagation
-                    />
-                  </>
-                  : ''}
+                  <OpenModalButton
+                    buttonText='Edit Shift'
+                    modalComponent={<NewShiftModal shift={shift} />}
+                    preventDefault
+                    stopPropagation
+                  />
+                </div>
               </div>
-            ))}</div>
+
+              <div className='comments-header'>Comments</div>
+
+              <div><OpenModalButton
+                buttonText={'New comment'}
+                modalComponent={<NewCommentModal shift={shift} />}
+                preventDefault
+                stopPropagation
+              />
+              </div>
+
+              <div className='comments' >{comments.filter(comment => comment.shiftId === shift.id).map((comment, idx) => (
+                <div className='container' key={`${comment.id}--${idx}`}>
+                  {`${comment.User.firstName} ${comment.User.lastName}: ${comment.body}`}
+                  {session && session.id === comment.userId ?
+                    <div className='buttons'>
+                      <OpenModalButton
+                        buttonText='Delete'
+                        preventDefault
+                        stopPropagation
+                        modalComponent={<DeleteCommentModal comment={comment} />}
+                      />
+                      <OpenModalButton
+                        buttonText={'Edit'}
+                        modalComponent={<NewCommentModal comment={comment} />}
+                        preventDefault
+                        stopPropagation
+                      />
+                    </div>
+                    : ''}
+                </div>
+              ))}</div>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </>
 
   )

@@ -1,0 +1,66 @@
+.heading {
+    text-align: center;
+    font-size: 50px;
+}
+
+.new-shift {
+    text-align: center;
+    
+}
+
+.section {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+   
+}
+
+.shift {
+    padding-bottom: 1rem;
+    
+    border-bottom: 3px solid rgb(71, 133, 208);
+}
+
+.container {
+    margin-bottom: 1rem;
+    border: 1px solid blue;
+    border-radius: 1rem;
+
+    padding: 1rem;
+    box-shadow: 1px 1px 10px blue;
+    font-size: 30px;
+    gap: 5rem;
+    
+    
+}
+
+.big {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.comments {
+    margin-top: 1rem;
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.comments-header {
+    margin-top: 2rem;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.buttons{
+   
+   height: 1.5rem;
+    margin-top: .3rem;
+    display: flex;
+    margin-left: .5rem;
+    gap: .5rem;
+}

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { createShiftThunk, updateShiftThunk } from "../../../redux/shift";
 import { getSchedulesThunk } from '../../../redux/schedule';
 import { createCommentThunk, readCommentThunk, updateCommentThunk } from "../../../redux/comment";
+import './NewCommentModal.css'
 
 
 function NewCommentModal({shift, comment}) {
@@ -90,12 +91,12 @@ useEffect(() => {
 
   return (
     <>
-      <h1>Comment</h1>
+      <h1 className="title">Comment</h1>
       
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form className="form" onSubmit={handleSubmit}>
+        <label className="label">
           What do you Want to say: 
-          <input
+          <input className="input-body"
             type="text"
             value={body}
             onChange={(e) => setBody(e.target.value)}
@@ -103,7 +104,7 @@ useEffect(() => {
           />
         </label>
         
-        <button type="submit">Submit</button>
+        <button className="submit" type="submit">Submit</button>
       </form>
     </>
   );
