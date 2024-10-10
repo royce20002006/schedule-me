@@ -1,4 +1,10 @@
 'use strict';
+
+let options = {};
+options.tableName = 'Schedules';
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -11,7 +17,8 @@ module.exports = {
       },
       day: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        unique: true
       },
       createdAt: {
         allowNull: false,
@@ -23,7 +30,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Schedules');

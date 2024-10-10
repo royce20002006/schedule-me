@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Comment.belongsTo(models.User, {foreignKey: 'userId', onDelete: 'cascade'})
-      Comment.hasMany(models.Shift, {foreignKey: 'shiftId', onDelete:"cascade"})
+      Comment.belongsTo(models.Shift, {foreignKey: 'shiftId', onDelete:"cascade"})
     }
   }
   Comment.init({
