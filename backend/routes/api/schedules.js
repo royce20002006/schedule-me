@@ -63,7 +63,8 @@ router.get('/:id/shifts', async (req, res, next) => {
             include: {model: User, 
                 as: 'User',
                 attributes: ['id', 'firstName', 'lastName']
-            }
+            },
+            order: [['startTime', 'ASC']]
         })
         if (shifts) {
             res.json({ Shifts: shifts })
@@ -76,23 +77,18 @@ router.get('/:id/shifts', async (req, res, next) => {
 
 router.post('/', requireAuth, scheduleValidation, async (req, res, next) => {
     try {
-        console.log('backend')
         const { day } = req.body;
-        console.log(day, 'day in backend')
 
         const newDay = await Schedule.create({
             day
         })
 
 
-        console.log(newDay, 'jdfalk;')
+        
         if (newDay) {
-            let scheduleFormatting = {
-                id: newDay.id,
-                day: newDay.day
-            }
+            
 
-            return res.json(scheduleFormatting)
+            return res.json(newDay)
         } else {
 
             throw newDay
@@ -147,7 +143,6 @@ router.post('/:id/shifts', requireAuth, async (req, res, next) => {
 router.put('/:id/shifts/:shiftId', requireAuth, async (req, res, next) => {
     try {
         const { id, shiftId } = req.params;
-        console.log(shiftId, 'iiiiiiiiddddddd')
         const { user } = req
         const { startTime, endTime, userId } = req.body;
 
@@ -156,10 +151,10 @@ router.put('/:id/shifts/:shiftId', requireAuth, async (req, res, next) => {
         if (user) {
 
             if (endTime <= startTime) {
-                const err = new ValidationError('Bad Request')
-                err.status = 500;
-                err.errors = 'Start time cannot be on or after end time!'
-                throw err;
+                const err = new Error('Bad Request');
+                err.errors = { startTime: 'Start time cannot be on or after end time.' };
+                err.status = 400
+                return next(err)
             }
 
             const shift = await Shift.findByPk(shiftId);
@@ -169,13 +164,19 @@ router.put('/:id/shifts/:shiftId', requireAuth, async (req, res, next) => {
                 const updatedShift = await shift.update({
                     startTime: startTime,
                     endTime: endTime,
-                    scheduleId: id,
+                    scheduleId: parseInt(id),
                     userId: userId
 
                 })
 
                 await shift.save()
-                return res.json(updatedShift)
+
+                const shiftWithUser = await Shift.findOne({
+                    where: { id: shift.id },
+                    include: { model: User,as: 'User', attributes: ['id', 'firstName', 'lastName'] }
+                });
+
+                return res.json(shiftWithUser)
             }
 
 
@@ -183,14 +184,7 @@ router.put('/:id/shifts/:shiftId', requireAuth, async (req, res, next) => {
 
 
 
-            if (newShift) {
-
-
-                return res.json(newShift)
-            } else {
-
-                throw newShift
-            }
+        
         }
 
 

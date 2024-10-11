@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getSchedulesThunk } from '../../redux/schedule';
-import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import NewDayModal from './NewDayModal';
 import './Splash.css'
 import OpenModalButtonTwo from '../OpenModalButtonTwo/OpenModalButtonTwo';
@@ -43,7 +42,7 @@ const Splash = () => {
   return (
     <div>
       <h1 className='header'>Weekly Schedule List</h1>
-      <div className='center'>
+      <div className='center-div'>
       <OpenModalButtonTwo
                   className='submit'
                   buttonText="New Day"

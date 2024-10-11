@@ -8,8 +8,11 @@ function SignupFormModal() {
   const dispatch = useDispatch();
   
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState('Employee')
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
@@ -27,13 +30,17 @@ function SignupFormModal() {
     const serverResponse = await dispatch(
       thunkSignup({
         email,
+        firstName,
+        role,
+        lastName,
         username,
         password,
       })
     );
 
     if (serverResponse) {
-      setErrors(serverResponse);
+      console.log(serverResponse.errors)
+      setErrors(serverResponse.errors);
     } else {
       closeModal();
     }
@@ -42,8 +49,38 @@ function SignupFormModal() {
   return (
     <>
       <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+      {errors.server && <p className="error">{errors.server}</p>}
+      {errors.undefined && <p className="error">{errors.undefined}</p>}
+      
       <form className='signup-form' onSubmit={handleSubmit}>
+      <label className="labels">
+          First Name
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </label>
+        {errors.firstName && <p>{errors.firstName}</p>}
+      <label className="labels">
+          Last Name
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </label>
+        <label className="labels">
+          Role
+          <select className="select" value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="Supervisor">Supervisor</option>
+            <option value="Manager">Manager</option>
+            <option value="Employee">Employee</option>
+          </select>
+        </label>
+        {errors.role && <p>{errors.role}</p>}
         <label className="labels">
           Email
           <input

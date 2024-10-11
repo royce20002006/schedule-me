@@ -1,16 +1,16 @@
-import { useState } from "react";
+
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
-import { useParams } from "react-router-dom";
-import { deleteShiftThunk } from "../../../redux/shift";
-import { getSchedulesThunk } from "../../../redux/schedule";
+
 import { deleteCommentThunk, readCommentThunk } from "../../../redux/comment";
+import { useState } from "react";
 
 
 function DeleteCommentModal({comment}) {
-  const dispatch = useDispatch();
-  const { closeModal } = useModal();
-  const {id } = useParams()
+    const dispatch = useDispatch();
+    const { closeModal } = useModal();
+    const [errors, setErrors] = useState({})
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,9 +34,11 @@ function DeleteCommentModal({comment}) {
   return (
     <>
       <h1>Delete This Comment</h1>
-      
-        <button onClick={e => handleSubmit(e)}>Yes Delete the Comment</button>
-        <button onClick={e => closeModal()}>No Keep the Comment</button>
+      <div className="buttons">
+
+        <button className='submit'  onClick={e => handleSubmit(e)}>Yes</button>
+        <button className="submit" onClick={() => closeModal()}>No</button>
+      </div>
       
     </>
   );

@@ -15,6 +15,7 @@ function LoginFormPage() {
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
+    console.log('akldf')
     e.preventDefault();
 
     const serverResponse = await dispatch(

@@ -18,6 +18,11 @@
    
 }
 
+.buttons {
+    display: flex;
+    justify-content: center;
+    
+}
 .container {
     margin-bottom: 1rem;
     border: 1px solid blue;
@@ -27,6 +32,11 @@
     gap: 5rem;
     color: black;
     
+}
+
+.center-div{
+    display: flex;
+    justify-content: center;
 }
 
 .delete {

@@ -7,7 +7,9 @@
 
 .labels {
     display: flex;
+    
     flex-direction: column;
+    align-items: center;
 }
 
 .submit {
@@ -16,4 +18,11 @@
 }
 
 
+
+.select {
+    
+    justify-content: center;
+    width: 11rem;
+    height: 1.4rem;
+}
 

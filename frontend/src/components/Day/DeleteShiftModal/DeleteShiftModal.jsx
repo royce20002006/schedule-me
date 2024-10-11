@@ -8,7 +8,7 @@ import { getSchedulesThunk } from "../../../redux/schedule";
 
 function DeleteShiftModal({shift}) {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
+ 
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
   const {id } = useParams()
@@ -36,8 +36,11 @@ function DeleteShiftModal({shift}) {
     <>
       <h1>Delete This Shift</h1>
       {errors.server && <p>{errors.server}</p>}
-        <button onClick={e => handleSubmit(e)}>Yes Delete the Shift</button>
-        <button onClick={e => closeModal()}>No Keep the Shift</button>
+      <div className="buttons">
+
+        <button className="submit" onClick={e => handleSubmit(e)}>Yes</button>
+        <button className="submit" onClick={()=> closeModal()}>No</button>
+      </div>
       
     </>
   );

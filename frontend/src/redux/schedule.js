@@ -1,3 +1,4 @@
+import { csrfFetch } from './csrf';
 const GET_ALL_SCHEDULES = 'schedules/getAllSchedules';
 const CREATE_SCHEDULE = 'schedules/createSchedule'
 
