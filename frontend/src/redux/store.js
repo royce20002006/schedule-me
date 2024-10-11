@@ -9,12 +9,14 @@ import sessionReducer from "./session";
 import schedulesReducer from "./schedule";
 import shiftReducer from "./shift";
 import commentReducer from "./comment";
+import userReducer from "./users";
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     scheduleState: schedulesReducer,
     shiftState: shiftReducer,
     commentState: commentReducer,
+    userState: userReducer
 });
 
 let enhancer;

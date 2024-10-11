@@ -21,20 +21,20 @@ const allUsers = (users) => ({
 
 
 
-export const allUsersThunk = () => async(dispatch) => {
-    try {
-        const response = await csrfFetch('api/users/all')
-        if(response.ok) {
+// export const allUsersThunk = () => async(dispatch) => {
+//     try {
+//         const response = await csrfFetch('api/users/all')
+//         if(response.ok) {
            
-            const data = await response.json();
+//             const data = await response.json();
             
-            dispatch(allUsers(data))
-        }
+//             dispatch(allUsers(data))
+//         }
         
-    } catch (error) {
-        return error
-    }
-}
+//     } catch (error) {
+//         return error
+//     }
+// }
 export const thunkAuthenticate = () => async (dispatch) => {
     try{
         const response = await csrfFetch("/api/restore-user");
@@ -48,6 +48,7 @@ export const thunkAuthenticate = () => async (dispatch) => {
 };
 
 export const thunkLogin = (credentials) => async dispatch => {
+    
     const {email, password} = credentials
     const response = await csrfFetch("/api/session", {
         method: "POST",
@@ -55,10 +56,13 @@ export const thunkLogin = (credentials) => async dispatch => {
     });
 
     if (response.ok) {
+
         const data = await response.json();
         dispatch(setUser(data));
     } else if (response.status < 500) {
+
         const errorMessages = await response.json();
+        
         return errorMessages
     } else {
         return { server: "Something went wrong. Please try again" }
@@ -66,17 +70,20 @@ export const thunkLogin = (credentials) => async dispatch => {
 };
 
 export const thunkSignup = (user) => async (dispatch) => {
+    console.log(user, 'user in thunk')
     const response = await csrfFetch("/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user)
     });
+    console.log(response.status, 'status')
 
     if (response.ok) {
         const data = await response.json();
         dispatch(setUser(data));
     } else if (response.status < 500) {
         const errorMessages = await response.json();
+        console.log(errorMessages, 'inthunk')
         return errorMessages
     } else {
         return { server: "Something went wrong. Please try again" }

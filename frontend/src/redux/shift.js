@@ -1,3 +1,4 @@
+import { csrfFetch } from './csrf';
 const READ_SHIFT = 'shift/readShift'
 const CREATE_SHIFT= 'shift/createShift'
 const DELETE_SHIFT= 'shift/deleteShift'
@@ -42,7 +43,7 @@ export const readShiftThunk = (id) => async (dispatch) => {
 }
 
 export const createShiftThunk = (id, shift) => async (dispatch) => {
-    try {
+    
 
        
         const options = {
@@ -60,12 +61,16 @@ export const createShiftThunk = (id, shift) => async (dispatch) => {
 
             dispatch(createShift(data))
             return res;
+        }else if (res.status < 500) {
+            const errorMessages = await res.json();
+            console.log(errorMessages, 'inthunk')
+            return errorMessages
+        } else {
+            return { server: "Something went wrong. Please try again" }
         }
 
 
-    } catch (error) {
-        return error;
-    }
+   
 }
 export const deleteShiftThunk = (id, shift) => async (dispatch) => {
     try {
@@ -114,6 +119,12 @@ export const updateShiftThunk = (id, updateShift) => async (dispatch) => {
             console.log(data, 'think')
             dispatch(updateShifts(data))
             return res;
+        }else if (res.status < 500) {
+            const errorMessages = await res.json();
+            console.log(errorMessages, 'inthunk')
+            return errorMessages
+        } else {
+            return { server: "Something went wrong. Please try again" }
         }
 
 

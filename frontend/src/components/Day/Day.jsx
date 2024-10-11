@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { getSchedulesThunk } from '../../redux/schedule';
-import { allUsersThunk } from '../../redux/session';
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 
 import NewShiftModal from './NewShiftModal/NewShiftModal';
@@ -13,6 +12,7 @@ import NewCommentModal from './NewCommentModal/NewCommentModal';
 import DeleteCommentModal from './DeleteCommentModal/DeleteCommentModal';
 import './Day.css'
 import OpenModalButtonTwo from '../OpenModalButtonTwo/OpenModalButtonTwo';
+import { getAllUsersThunk } from '../../redux/users';
 function Day() {
   const { id } = useParams();
   const schedule = useSelector(state => state.scheduleState.byId[id])
@@ -27,9 +27,10 @@ function Day() {
 
     const getData = async () => {
       await dispatch(getSchedulesThunk());
+      await dispatch(getAllUsersThunk());
       await dispatch(readShiftThunk(id))
       await dispatch(readCommentThunk())
-      await dispatch(allUsersThunk())
+      
 
       setIsLoaded(true);
     }
@@ -38,7 +39,7 @@ function Day() {
       getData();
     }
 
-  }, [dispatch, isLoaded])
+  }, [dispatch, isLoaded,session, id])
 
   if (!isLoaded) {
     return 'Loading'
@@ -48,13 +49,17 @@ function Day() {
 
       <h1 className='heading'>Schedule for {new Date(schedule.day).toDateString()}</h1>
       {session && session.role === 'Supervisor' ?
+      <div className='center-div'>
         <OpenModalButtonTwo
           className='new-shift'
           buttonText='New Shift'
           modalComponent={<NewShiftModal />}
           preventDefault
           stopPropagation
-        /> : ''}
+        />
+      </div>
+       : ''}
+
       <div className='section'>
         {shifts.filter(shift => shift.scheduleId === schedule.id).map((shift, idx) => (
           <div className='container' key={`${shift.id}--${idx}`}>

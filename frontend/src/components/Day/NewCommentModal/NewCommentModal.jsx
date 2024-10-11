@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { useParams } from "react-router-dom";
-import { createShiftThunk, updateShiftThunk } from "../../../redux/shift";
+
 import { getSchedulesThunk } from '../../../redux/schedule';
-import { createCommentThunk, readCommentThunk, updateCommentThunk } from "../../../redux/comment";
+import { createCommentThunk, updateCommentThunk } from "../../../redux/comment";
 import './NewCommentModal.css'
 
 
@@ -16,7 +16,6 @@ function NewCommentModal({shift, comment}) {
 
  
   
-  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 useEffect(() => {
     if(comment) {

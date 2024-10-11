@@ -1,5 +1,5 @@
+import { csrfFetch } from './csrf';
 const READ_COMMENT = 'comment/readComment'
-
 const CREATE_COMMENT= 'comment/createComment'
 const DELETE_COMMENT= 'comment/deleteComment'
 const UPDATE_COMMENT = 'comment/updateComment'

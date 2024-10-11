@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useModal } from '../../context/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { createScheduleThunk, getSchedulesThunk } from '../../redux/schedule';
+import { createScheduleThunk } from '../../redux/schedule';
 
 
 
@@ -9,7 +9,7 @@ import { createScheduleThunk, getSchedulesThunk } from '../../redux/schedule';
 export default function NewDayModal() {
     const [day, setDay] = useState('')
     const [errors, setErrors] = useState({});
-    const schedules = useSelector(state => state.scheduleState.allSchedules)
+    
     const session = useSelector(state => state.session)
     const dispatch = useDispatch();
     
@@ -53,17 +53,17 @@ export default function NewDayModal() {
   return (
     <div >
       <div className='label'>
-        <h1 className='delete'>Confirm Delete</h1>
+        <h1 className='delete'>Create a new schedule</h1>
+        {errors.day && <div className='error'>{errors.day}</div>}
         <div className='day-select' >Select a day</div>
         <input  className='input margin' type="date"
         value={day}
         onChange={e => setDay(e.target.value)} />
-        {errors.day && errors.day}
 
       </div>
         <div className='buttons'>
-        <button   onClick={(e) => newDay(e)}>Create new Day</button>
-        <button   onClick={closeModal}>Cancel</button>
+        <button className='submit'  onClick={(e) => newDay(e)}>Create new Day</button>
+        <button className='submit'  onClick={closeModal}>Cancel</button>
 
         </div>
     </div>
