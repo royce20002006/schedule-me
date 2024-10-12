@@ -1,0 +1,57 @@
+.profile-dropdown {
+    position: absolute;
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: .6rem;
+    list-style: none;
+    margin-bottom: .9rem;
+    
+    box-shadow: 0px 0px 6px blue;
+    padding: .3rem 1rem;
+    font-size: 14pt;
+    
+}
+
+.profile-navs {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5rem;
+    background-color: aliceblue;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    padding: 1rem;
+
+}
+
+.links li {
+    padding-bottom: .4rem;
+}
+
+.profile-button {
+    display: flex;
+    gap: .7rem;
+    font-size: 14pt;
+    margin-bottom: .2rem;
+    
+    list-style: none;
+    padding: 5px;
+    border-radius:  5rem;
+    border: 1px solid lightgray;
+    box-shadow: 2px 2px 6px lightgray;
+}
+
+.logout{ 
+    
+    
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 1rem;
+    
+}
+
+button {
+    cursor: pointer;
+    
+}

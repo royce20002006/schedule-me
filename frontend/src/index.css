@@ -1,0 +1,56 @@
+/* TODO: Add sitewide styles */
+a {
+    text-decoration: none;
+}
+
+.submit {
+    border: 1px solid black;
+    border-radius: 1rem;
+    width: 8rem;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1.5rem;
+}
+
+.submit-red {
+    border: 1px solid black;
+    border-radius: 1rem;
+    width: 8rem;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1.5rem;
+    background-color: red;
+}
+
+.not-logged-in {
+    text-align: center;
+    font-size: 100px;
+    font-weight: bolder;
+}
+
+.center {
+   
+    margin-left: auto;
+    margin-right: auto;
+    width: 5rem;
+    height: 2rem;
+    border-radius: 2rem;
+    border: 1px solid black;
+}
+
+input {
+    width: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+body {
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+

@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     day: {
       type: DataTypes.DATE,
       allowNull: false, 
+      unique: true
     }
   }, {
     sequelize,
