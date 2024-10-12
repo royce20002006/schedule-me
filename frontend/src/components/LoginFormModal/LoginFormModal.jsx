@@ -11,6 +11,28 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const demoLoginSupervisor = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return dispatch(thunkLogin({ email: 'Demo-lition', password: 'password' })).then(closeModal)
+        .catch(
+            async (res) => {
+                const data = await res.json();
+                if (data?.errors) setErrors(data.errors);
+            }
+        );
+      }
+  const demoLoginEmployee = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return dispatch(thunkLogin({ email: 'FakeUser2', password: 'password3' })).then(closeModal)
+        .catch(
+            async (res) => {
+                const data = await res.json();
+                if (data?.errors) setErrors(data.errors);
+            }
+        );
+      }
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,7 +60,7 @@ function LoginFormModal() {
       {errors.credential && <div className="error">{errors.credential}</div>}
       <form className="login-form" onSubmit={handleSubmit}>
         <label className="labels">
-          Email
+          Username or Email
           <input
             type="text"
             value={email}
@@ -56,8 +78,13 @@ function LoginFormModal() {
             required
           />
         </label>
-        
         <button className="submit" type="submit">Log In</button>
+        <div className="buttons">
+        <button className="submit" onClick={(e) => demoLoginSupervisor(e)}>Supervisor</button>
+        <button className="submit" onClick={(e) => demoLoginEmployee(e)}>employee</button>
+
+        </div>
+        
       </form>
     </>
   );

@@ -3,7 +3,7 @@ import { csrfFetch } from './csrf';
 //Constants
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
-const ALL_USERS = 'session/allUsers'
+
 
 const setUser = (user) => ({
     type: SET_USER,
@@ -14,27 +14,11 @@ const removeUser = () => ({
     type: REMOVE_USER
 });
 
-const allUsers = (users) => ({
-    type: ALL_USERS,
-    payload: users
-})
 
 
 
-// export const allUsersThunk = () => async(dispatch) => {
-//     try {
-//         const response = await csrfFetch('api/users/all')
-//         if(response.ok) {
-           
-//             const data = await response.json();
-            
-//             dispatch(allUsers(data))
-//         }
-        
-//     } catch (error) {
-//         return error
-//     }
-// }
+
+
 export const thunkAuthenticate = () => async (dispatch) => {
     try{
         const response = await csrfFetch("/api/restore-user");
@@ -58,7 +42,7 @@ export const thunkLogin = (credentials) => async dispatch => {
     if (response.ok) {
 
         const data = await response.json();
-        dispatch(setUser(data));
+        dispatch(setUser(data.user));
     } else if (response.status < 500) {
 
         const errorMessages = await response.json();
@@ -98,19 +82,16 @@ export const thunkLogout = () => async (dispatch) => {
 };
 
 
-const initialState = { user: null, allUsers: [], byId: {} };
+const initialState = { user: null};
 
 function sessionReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
         case SET_USER:
-            return { ...state, user: action.payload };
+            return { ...state, user: action.payload};
         case REMOVE_USER:
             return { ...state, user: null };
-        case ALL_USERS:
-            newState = {...state}
-            newState.allUsers = action.payload
-            return newState;
+        
         default:
             return state;
     }

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getSchedulesThunk } from '../../redux/schedule';
@@ -11,6 +11,7 @@ import OpenModalButtonTwo from '../OpenModalButtonTwo/OpenModalButtonTwo';
 const Splash = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false)
+  const session = useSelector(state => state.session.user);
   const schedules = useSelector(state => state.scheduleState.allSchedules)
   useEffect(() => {
     //grab data
@@ -26,8 +27,12 @@ const Splash = () => {
       getData();
     }
 
+
   }, [dispatch, isLoaded])
 
+  if (!session) {
+    return <h1 className='not-logged-in'>Must be logged in</h1>
+  }
   if (!isLoaded) {
     setTimeout(() => {
       return <h1>Loading</h1>
@@ -35,50 +40,54 @@ const Splash = () => {
     )
   }
 
-  
 
-  
+
+
 
   return (
     <div>
       <h1 className='header'>Weekly Schedule List</h1>
-      <div className='center-div'>
-      <OpenModalButtonTwo
-                  className='submit'
-                  buttonText="New Day"
-                  modalComponent={<NewDayModal />}
-                  preventDefault
-                  stopPropagation
-                />
-     
-      </div>
+      {session && session.role === 'Supervisor' ?
+        <div className='center-div'>
+          <OpenModalButtonTwo
+            className='submit'
+            buttonText="New Day"
+            modalComponent={<NewDayModal />}
+            preventDefault
+            stopPropagation
+          />
+        </div>
+        : ''
+
+      }
+
       <div className='section'>
 
-      {schedules.length > 0 ? (
-       schedules.map((day, idx) => (
-        
-          <NavLink 
-            to={`/schedules/${day.id}`} 
-            key={`${day}--${idx}`} 
-          >
-            
-              
-            <div >
-              {
-              <div className='container'>{new Date(day.day).toDateString()}
-                </div>
-              }
-              
-            </div>
-          </NavLink>
-          
+        {schedules.length > 0 ? (
+          schedules.map((day, idx) => (
 
-        
-          
-        ))
-      ) : (
-        <div>No Schedules to Display</div>
-      )}
+            <NavLink
+              to={`/schedules/${day.id}`}
+              key={`${day}--${idx}`}
+            >
+
+
+              <div >
+                {
+                  <div className='container'>{new Date(day.day).toDateString()}
+                  </div>
+                }
+
+              </div>
+            </NavLink>
+
+
+
+
+          ))
+        ) : (
+          <div>No Schedules to Display</div>
+        )}
       </div>
 
     </div>
