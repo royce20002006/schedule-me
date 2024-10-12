@@ -65,7 +65,7 @@ function Day() {
         </div>
         : ''}
 
-      <div className='section'>
+      <div className='section-day'>
         {shifts.filter(shift => shift.scheduleId === schedule.id).map((shift, idx) => (
           <div className='container' key={`${shift.id}--${idx}`}>
             <div >
