@@ -45,20 +45,20 @@ export const readShiftThunk = (id) => async (dispatch) => {
 export const createShiftThunk = (id, shift) => async (dispatch) => {
     
 
+   
        
         const options = {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
             body: JSON.stringify(shift)
         }
-
         
 
         const res = await csrfFetch(`/api/schedules/${id}/shifts`, options);
         
         if (res.ok) {
             const data = await res.json();
-
+            
             dispatch(createShift(data))
             return res;
         }else if (res.status < 500) {
@@ -87,6 +87,7 @@ export const deleteShiftThunk = (id, shift) => async (dispatch) => {
         const res = await csrfFetch(`/api/schedules/${id}/shifts/${shift.id}`, options);
         
         if (res.ok) {
+            
             const data = await res.json();
 
             dispatch(deleteShift(data))
@@ -157,7 +158,7 @@ function shiftReducer(state = initialState, action) {
         case CREATE_SHIFT: {
             newState = { ...state }
             newState.allShifts = [...newState.allShifts, action.payload]
-            newState.byId[action.payload.id] = action.payload;
+            newState.byShiftId[action.payload.id] = action.payload;
             return newState;
         }
         

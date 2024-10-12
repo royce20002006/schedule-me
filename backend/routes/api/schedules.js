@@ -105,6 +105,7 @@ router.post('/:id/shifts', requireAuth, async (req, res, next) => {
         const { id } = req.params;
         const { startTime, endTime, userId } = req.body;
 
+
         if (endTime <= startTime) {
             const err = new ValidationError('Bad Request')
             err.status = 500;
@@ -121,13 +122,17 @@ router.post('/:id/shifts', requireAuth, async (req, res, next) => {
         }
 
         )
+        const shiftWithUser = await Shift.findOne({
+            where: { id: newShift.id },
+            include: { model: User,as: 'User', attributes: ['id', 'firstName', 'lastName'] }
+        });
 
 
 
         if (newShift) {
+           
 
-
-            return res.json(newShift)
+            return res.json(shiftWithUser)
         } else {
 
             throw newShift
