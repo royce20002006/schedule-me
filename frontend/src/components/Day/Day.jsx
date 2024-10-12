@@ -21,11 +21,14 @@ function Day() {
   const shifts = useSelector(state => state.shiftState.allShifts);
   const comments = useSelector(state => state.commentState.allComments);
   const session = useSelector(state => state.session.user);
+  const users = useSelector(state => state.userState.allUsers)
 
   useEffect(() => {
     //grab data
+    
 
     const getData = async () => {
+      
       await dispatch(getSchedulesThunk());
       await dispatch(getAllUsersThunk());
       await dispatch(readShiftThunk(id))

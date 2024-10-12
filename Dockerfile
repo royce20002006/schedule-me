@@ -38,6 +38,7 @@ ENV SCHEMA=${SCHEMA}
 
 # Fill this out on render using internal db url, or external url if running locally on docker
 #schema for render
+
 ENV DATABASE_URL=${DATABASE_URL}
 
 # Fill this out on render/docker
