@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { getSchedulesThunk } from '../../redux/schedule';
@@ -25,25 +25,27 @@ function Day() {
 
   useEffect(() => {
     //grab data
-    
+
 
     const getData = async () => {
-      
+
       await dispatch(getSchedulesThunk());
       await dispatch(getAllUsersThunk());
       await dispatch(readShiftThunk(id))
       await dispatch(readCommentThunk())
-      
+
 
       setIsLoaded(true);
     }
-
     if (!isLoaded) {
       getData();
     }
 
-  }, [dispatch, isLoaded,session, id])
+  }, [dispatch, isLoaded, session, id])
 
+  if (!session) {
+    return <h1 className='not-logged-in'>Must be logged in</h1>
+  }
   if (!isLoaded) {
     return 'Loading'
   }
@@ -52,47 +54,52 @@ function Day() {
 
       <h1 className='heading'>Schedule for {new Date(schedule.day).toDateString()}</h1>
       {session && session.role === 'Supervisor' ?
-      <div className='center-div'>
-        <OpenModalButtonTwo
-          className='new-shift'
-          buttonText='New Shift'
-          modalComponent={<NewShiftModal />}
-          preventDefault
-          stopPropagation
-        />
-      </div>
-       : ''}
+        <div className='center-div'>
+          <OpenModalButtonTwo
+            className='new-shift'
+            buttonText='New Shift'
+            modalComponent={<NewShiftModal />}
+            preventDefault
+            stopPropagation
+          />
+        </div>
+        : ''}
 
       <div className='section'>
         {shifts.filter(shift => shift.scheduleId === schedule.id).map((shift, idx) => (
           <div className='container' key={`${shift.id}--${idx}`}>
             <div >
               <div className='shift' >{<div className='big'>{`${shift.User.firstName} ${shift.User.lastName} : ${shift.startTime} -- ${shift.endTime}`}</div>}
-                <div className='buttons'>
-                  <OpenModalButton
-                    buttonText='Delete Shift'
-                    modalComponent={<DeleteShiftModal shift={shift} />}
-                    preventDefault
-                    stopPropagation />
+                {session && session.role === 'Supervisor' ?
+                  <div className='buttons'>
+                    <OpenModalButton
+                      buttonText='Delete Shift'
+                      modalComponent={<DeleteShiftModal shift={shift} />}
+                      preventDefault
+                      stopPropagation />
 
-                  <OpenModalButton
-                    buttonText='Edit Shift'
-                    modalComponent={<NewShiftModal shift={shift} />}
-                    preventDefault
-                    stopPropagation
-                  />
-                </div>
+                    <OpenModalButton
+                      buttonText='Edit Shift'
+                      modalComponent={<NewShiftModal shift={shift} />}
+                      preventDefault
+                      stopPropagation
+                    />
+                  </div> : ''
+
+                }
               </div>
 
               <div className='comments-header'>Comments</div>
-
+                {session && session.id === shift.User.id || session && session.role === 'Supervisor'? 
               <div><OpenModalButton
                 buttonText={'New comment'}
                 modalComponent={<NewCommentModal shift={shift} />}
                 preventDefault
                 stopPropagation
               />
-              </div>
+              </div> : ''
+                
+              }
 
               <div className='comments' >{comments.filter(comment => comment.shiftId === shift.id).map((comment, idx) => (
                 <div className='container' key={`${comment.id}--${idx}`}>

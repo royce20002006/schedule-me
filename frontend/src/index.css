@@ -22,6 +22,12 @@ a {
     background-color: red;
 }
 
+.not-logged-in {
+    text-align: center;
+    font-size: 100px;
+    font-weight: bolder;
+}
+
 .center {
    
     margin-left: auto;
