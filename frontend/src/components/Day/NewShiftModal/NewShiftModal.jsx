@@ -11,7 +11,7 @@ function NewShiftModal({ shift }) {
     const [userId, setUserId] = useState('')
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
-  const users = useSelector(state => state.userState.allUsers)
+    const users = useSelector(state => state.userState.allUsers)
 
 
 
@@ -20,7 +20,7 @@ function NewShiftModal({ shift }) {
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
     useEffect(() => {
-        
+
 
         if (shift) {
             setUserId(shift.userId)
@@ -48,17 +48,17 @@ function NewShiftModal({ shift }) {
                 )
             );
 
-            if (serverResponse) {
-                console.log(serverResponse.errors)
-                setErrors(serverResponse.errors);
-                console.log(errors)
+            if (serverResponse.ok) {
                 
+                await dispatch(readShiftThunk(id))
+                closeModal();
                 
                 
             } else {
                 
-                await dispatch(readShiftThunk(id))
-                closeModal();
+                console.log(serverResponse.errors)
+                setErrors(serverResponse.errors);
+                console.log(errors)
 
 
             }
@@ -81,15 +81,15 @@ function NewShiftModal({ shift }) {
                 )
             );
 
-            if (serverResponse) {
-                
-                setErrors(serverResponse.errors);
-                
-            } else {
-                
-                
+            if (serverResponse.ok) {
+
                 await dispatch(readShiftThunk(id))
                 closeModal();
+                
+            } else {
+                setErrors(serverResponse.errors);
+
+
 
             }
         }
@@ -100,7 +100,7 @@ function NewShiftModal({ shift }) {
             <h1 className="title">Create a new Shift</h1>
 
             <form className="form" onSubmit={handleSubmit}>
-                {errors.startTime && <p className="error">{errors.startTime}</p>}
+                {errors?.startTime && <p className="error">{errors.startTime}</p>}
                 <label className="label">
                     User
                     <select
@@ -116,7 +116,7 @@ function NewShiftModal({ shift }) {
                         ))}
                     </select>
                 </label>
-                
+
                 <label className="label">
                     Start Time
                     <input

@@ -12,11 +12,11 @@ function NewCommentModal({shift, comment}) {
   const dispatch = useDispatch();
   const {id} = useParams()
   const [body, setBody] = useState('')
+  const { closeModal } = useModal();
    
 
  
   
-  const { closeModal } = useModal();
 useEffect(() => {
     if(comment) {
         
@@ -41,13 +41,14 @@ useEffect(() => {
             )
           );
       
-          if (serverResponse.ok) {
+          if (serverResponse) {
+              closeModal()
+              console.log(serverResponse, 'hmmmm')
               
-             await dispatch(getSchedulesThunk())
-              closeModal();
-            
-          } else {    
-              console.log(serverResponse)
+            } else {    
+                console.log(closeModal)
+                closeModal();
+              await dispatch(getSchedulesThunk())
               
            
           }
@@ -69,18 +70,19 @@ useEffect(() => {
           )
         );
     
-        if (serverResponse.ok) {
-            const goodResponse = async () => {
-                
-                await dispatch(getSchedulesThunk())
-                closeModal();
-
-            }
-            goodResponse()
-           
-        } else {    
+        if (serverResponse) {
             
-            console.log(serverResponse)
+                
+            closeModal()
+            
+            
+            
+            
+        } else {    
+            console.log(closeModal)
+            closeModal();
+            await dispatch(getSchedulesThunk())
+            
             
             
          
