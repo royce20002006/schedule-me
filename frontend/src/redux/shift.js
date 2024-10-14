@@ -63,7 +63,6 @@ export const createShiftThunk = (id, shift) => async (dispatch) => {
             return res;
         }else if (res.status < 500) {
             const errorMessages = await res.json();
-            console.log(errorMessages, 'inthunk')
             return errorMessages
         } else {
             return { server: "Something went wrong. Please try again" }
@@ -109,20 +108,16 @@ export const updateShiftThunk = (id, updateShift) => async (dispatch) => {
             header: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateShift)
         }
-        console.log(updateShift.id)
         
 
         const res = await csrfFetch(`/api/schedules/${id}/shifts/${updateShift.id}`, options);
-        console.log(res, 'thunk')
         if (res.ok) {
             
             const data = await res.json();
-            console.log(data, 'think')
             dispatch(updateShifts(data))
             return res;
         }else if (res.status < 500) {
             const errorMessages = await res.json();
-            console.log(errorMessages, 'inthunk')
             return errorMessages
         } else {
             return { server: "Something went wrong. Please try again" }

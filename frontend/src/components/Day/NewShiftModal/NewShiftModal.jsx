@@ -56,9 +56,7 @@ function NewShiftModal({ shift }) {
                 
             } else {
                 
-                console.log(serverResponse.errors)
                 setErrors(serverResponse.errors);
-                console.log(errors)
 
 
             }
@@ -80,7 +78,6 @@ function NewShiftModal({ shift }) {
                     shift
                 )
             );
-                console.log(shift, 'shift frontend')
 
             if (serverResponse.ok) {
 

@@ -43,10 +43,8 @@ useEffect(() => {
       
           if (serverResponse) {
               closeModal()
-              console.log(serverResponse, 'hmmmm')
               
             } else {    
-                console.log(closeModal)
                 closeModal();
               await dispatch(getSchedulesThunk())
               
@@ -79,7 +77,6 @@ useEffect(() => {
             
             
         } else {    
-            console.log(closeModal)
             closeModal();
             await dispatch(getSchedulesThunk())
             

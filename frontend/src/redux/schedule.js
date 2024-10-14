@@ -38,7 +38,6 @@ export const createScheduleThunk = (day) => async (dispatch) => {
 
 
         const res = await csrfFetch('/api/schedules', options);
-        console.log(res, 'res in thunk')
         if (res.ok) {
             const data = await res.json();
 
