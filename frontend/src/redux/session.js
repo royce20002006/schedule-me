@@ -54,20 +54,17 @@ export const thunkLogin = (credentials) => async dispatch => {
 };
 
 export const thunkSignup = (user) => async (dispatch) => {
-    console.log(user, 'user in thunk')
     const response = await csrfFetch("/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user)
     });
-    console.log(response.status, 'status')
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(setUser(data));
+        dispatch(setUser(data.user));
     } else if (response.status < 500) {
         const errorMessages = await response.json();
-        console.log(errorMessages, 'inthunk')
         return errorMessages
     } else {
         return { server: "Something went wrong. Please try again" }

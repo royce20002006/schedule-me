@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
 import "./SignupForm.css";
+import { getAllUsersThunk } from "../../redux/users";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -39,9 +40,9 @@ function SignupFormModal() {
     );
 
     if (serverResponse) {
-      console.log(serverResponse.errors)
       setErrors(serverResponse.errors);
     } else {
+      await dispatch(getAllUsersThunk());
       closeModal();
     }
   };
@@ -62,7 +63,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && <p className="error">{errors.firstName}</p>}
       <label className="labels">
           Last Name
           <input
@@ -80,7 +81,7 @@ function SignupFormModal() {
             <option value="Employee">Employee</option>
           </select>
         </label>
-        {errors.role && <p>{errors.role}</p>}
+        {errors.role && <p className="error">{errors.role}</p>}
         <label className="labels">
           Email
           <input
@@ -90,7 +91,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="error">{errors.email}</p>}
         <label className="labels">
           Username
           <input
@@ -100,7 +101,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className="error">{errors.username}</p>}
         <label className="labels">
           Password
           <input
@@ -110,7 +111,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="error">{errors.password}</p>}
         <label className="labels">
           Confirm Password
           <input
@@ -120,7 +121,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
         <button className="submit" type="submit">Sign Up</button>
       </form>
     </>
