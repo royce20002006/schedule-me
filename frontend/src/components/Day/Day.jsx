@@ -43,7 +43,14 @@ function Day() {
   }, [dispatch, isLoaded, session, id])
 
   if (!session) {
-    return <h1 className='not-logged-in'>Must be logged in</h1>
+    return (
+      <div >
+        <div className='background-not-logged-in'></div>
+        <div className='not-logged-in'>Welcome to schedule me</div>
+        <div className='not-logged-in'>You must be logged in to check schedules</div>
+        
+      </div>
+      )
   }
   if (!isLoaded) {
     return 'Loading'

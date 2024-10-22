@@ -85,8 +85,9 @@ function NewShiftModal({ shift }) {
                 closeModal();
                 
             } else {
+                console.log(serverResponse)
                 setErrors(serverResponse.errors);
-
+                console.log(errors)
 
 
             }
