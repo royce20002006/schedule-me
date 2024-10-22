@@ -2,6 +2,25 @@
     text-align: center;
 }
 
+.background-not-logged-in{
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70rem;
+    height: 35rem;
+    background-image: url(https://cdn.prod.website-files.com/663b7ee85d28eb9753a0aac5/66dabdb80b3e38902cf59f75_main%20pic.webp);
+    border: 1px 1px black;
+    border-radius: .5rem;
+    box-shadow: 1px 1px 50px gray;
+}
+
+.flex-box-not-logged {
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+}
+
 .submit {
     
     border: 1px solid black;

@@ -107,10 +107,10 @@ router.post('/:id/shifts', requireAuth, async (req, res, next) => {
 
 
         if (endTime <= startTime) {
-            const err = new ValidationError('Bad Request')
-            err.status = 500;
-            err.errors = 'Start time cannot be on or after end time!'
-            throw err;
+            const err = new Error('Bad Request');
+                    err.errors = { startTime: 'endTime cannot be on or before startTime' };
+                    err.status = 400;
+                    throw err;
         }
 
         const newShift = await Shift.create({
