@@ -56,9 +56,7 @@ function NewShiftModal({ shift }) {
                 
             } else {
                 
-                console.log(serverResponse.errors)
                 setErrors(serverResponse.errors);
-                console.log(errors)
 
 
             }
@@ -67,7 +65,7 @@ function NewShiftModal({ shift }) {
         } else {
 
             const shift = {
-                userId,
+                userId: parseInt(userId),
                 startTime,
                 endTime,
             }
@@ -76,7 +74,7 @@ function NewShiftModal({ shift }) {
             const serverResponse = await dispatch(
 
                 createShiftThunk(
-                    id,
+                    parseInt(id),
                     shift
                 )
             );
@@ -87,8 +85,9 @@ function NewShiftModal({ shift }) {
                 closeModal();
                 
             } else {
+                console.log(serverResponse)
                 setErrors(serverResponse.errors);
-
+                console.log(errors)
 
 
             }

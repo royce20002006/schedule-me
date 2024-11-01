@@ -45,25 +45,24 @@ export const readShiftThunk = (id) => async (dispatch) => {
 export const createShiftThunk = (id, shift) => async (dispatch) => {
     
 
+   
        
         const options = {
             method: 'POST',
             header: { 'Content-Type': 'application/json' },
             body: JSON.stringify(shift)
         }
-
         
 
         const res = await csrfFetch(`/api/schedules/${id}/shifts`, options);
         
         if (res.ok) {
             const data = await res.json();
-
+            
             dispatch(createShift(data))
             return res;
         }else if (res.status < 500) {
             const errorMessages = await res.json();
-            console.log(errorMessages, 'inthunk')
             return errorMessages
         } else {
             return { server: "Something went wrong. Please try again" }
@@ -87,6 +86,7 @@ export const deleteShiftThunk = (id, shift) => async (dispatch) => {
         const res = await csrfFetch(`/api/schedules/${id}/shifts/${shift.id}`, options);
         
         if (res.ok) {
+            
             const data = await res.json();
 
             dispatch(deleteShift(data))
@@ -108,20 +108,16 @@ export const updateShiftThunk = (id, updateShift) => async (dispatch) => {
             header: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateShift)
         }
-        console.log(updateShift.id)
         
 
         const res = await csrfFetch(`/api/schedules/${id}/shifts/${updateShift.id}`, options);
-        console.log(res, 'thunk')
         if (res.ok) {
             
             const data = await res.json();
-            console.log(data, 'think')
             dispatch(updateShifts(data))
             return res;
         }else if (res.status < 500) {
             const errorMessages = await res.json();
-            console.log(errorMessages, 'inthunk')
             return errorMessages
         } else {
             return { server: "Something went wrong. Please try again" }
@@ -157,7 +153,7 @@ function shiftReducer(state = initialState, action) {
         case CREATE_SHIFT: {
             newState = { ...state }
             newState.allShifts = [...newState.allShifts, action.payload]
-            newState.byId[action.payload.id] = action.payload;
+            newState.byShiftId[action.payload.id] = action.payload;
             return newState;
         }
         

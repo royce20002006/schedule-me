@@ -63,16 +63,13 @@ router.get('/:id/shifts', async (req, res, next) => {
 
 router.post('/', requireAuth, async (req, res, next) => {
     try {
-        console.log('backend')
         const { day } = req.body;
-        console.log(day, 'day in backend')
 
         const newDay = await Schedule.create({
             day
         })
 
 
-        console.log(newDay, 'jdfalk;')
         if (newDay) {
             let scheduleFormatting = {
                 id: newDay.id,

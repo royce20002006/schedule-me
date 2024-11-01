@@ -5,6 +5,8 @@ import { getSchedulesThunk } from '../../redux/schedule';
 import NewDayModal from './NewDayModal';
 import './Splash.css'
 import OpenModalButtonTwo from '../OpenModalButtonTwo/OpenModalButtonTwo';
+import LoginFormPage from '../LoginFormPage';
+import { Navigate } from 'react-router-dom';
 
 
 
@@ -31,7 +33,14 @@ const Splash = () => {
   }, [dispatch, isLoaded])
 
   if (!session) {
-    return <h1 className='not-logged-in'>Must be logged in</h1>
+    return (
+    <div >
+      <div className='background-not-logged-in'></div>
+      <div className='not-logged-in'>Welcome to schedule me</div>
+      <div className='not-logged-in'>You must be logged in to check schedules</div>
+      
+    </div>
+    )
   }
   if (!isLoaded) {
     setTimeout(() => {

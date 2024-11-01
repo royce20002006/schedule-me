@@ -1,21 +1,39 @@
 import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 
-function LoginFormPage() {
-  const navigate = useNavigate();
+function LoginFormModal() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const { closeModal } = useModal();
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
-
+  const demoLoginSupervisor = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return dispatch(thunkLogin({ email: 'Demo-lition', password: 'password' }))
+        .catch(
+            async (res) => {
+                const data = await res.json();
+                if (data?.errors) setErrors(data.errors);
+            }
+        );
+      }
+  const demoLoginEmployee = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return dispatch(thunkLogin({ email: 'FakeUser2', password: 'password3' }))
+        .catch(
+            async (res) => {
+                const data = await res.json();
+                if (data?.errors) setErrors(data.errors);
+            }
+        );
+      }
   const handleSubmit = async (e) => {
-    console.log('akldf')
     e.preventDefault();
 
     const serverResponse = await dispatch(
@@ -24,22 +42,25 @@ function LoginFormPage() {
         password,
       })
     );
+    
+    
 
-     if (serverResponse) {
-       setErrors(serverResponse);
-     } else {
-       navigate("/");
-     }
+    if (serverResponse) {
+     
+      setErrors(serverResponse.errors);
+    } else {
+      closeModal();
+    }
   };
 
   return (
     <>
       <h1>Log In</h1>
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+      {errors.server && <p className="error">{errors.server}</p>}
+      {errors.credential && <div className="error">{errors.credential}</div>}
+      <form className="login-form" onSubmit={handleSubmit}>
+        <label className="labels">
+          Username or Email
           <input
             type="text"
             value={email}
@@ -47,8 +68,8 @@ function LoginFormPage() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
+        
+        <label className="labels">
           Password
           <input
             type="password"
@@ -57,11 +78,16 @@ function LoginFormPage() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+        <button className="submit" type="submit">Log In</button>
+        <div className="buttons">
+        <button className="submit" onClick={(e) => demoLoginSupervisor(e)}>Supervisor</button>
+        <button className="submit" onClick={(e) => demoLoginEmployee(e)}>employee</button>
+
+        </div>
+        
       </form>
     </>
   );
 }
 
-export default LoginFormPage;
+export default LoginFormModal;
