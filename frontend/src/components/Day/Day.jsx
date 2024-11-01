@@ -113,6 +113,7 @@ function Day() {
                   {session && session.id === comment.userId ?
                     <div className='buttons'>
                       <OpenModalButton
+                        className='red'
                         buttonText='Delete'
                         preventDefault
                         stopPropagation
