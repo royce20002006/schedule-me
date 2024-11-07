@@ -22,9 +22,23 @@ a {
     background-color: red;
 }
 
+.back-button {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.click {
+    cursor: pointer;
+}
+
 .not-logged-in {
     text-align: center;
-    
+
+    font-family: sans-serif;
+
     font-size: 100px;
     font-weight: bolder;
 }
@@ -47,6 +61,7 @@ input {
 
 .error {
     color: red;
+    
     font-weight: bold;
 }
 
@@ -55,3 +70,21 @@ body {
     margin-right: 3rem;
 }
 
+h1 {
+    font-family: sans-serif;
+}
+
+.border {
+    border: 2px solid red;
+}
+
+.red {
+    background-color: red;
+}
+.middle {
+    font-size: 50px;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

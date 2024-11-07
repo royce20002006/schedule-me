@@ -29,8 +29,13 @@
 }
 
 .section {
+    
+
+    padding: 20px;
+    border-top: 1px solid black;
     margin-top: 1rem;
     display: flex;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: center;
@@ -43,6 +48,8 @@
     
 }
 .container {
+    
+
     margin-bottom: 1rem;
     border: 1px solid blue;
     padding: 1rem;

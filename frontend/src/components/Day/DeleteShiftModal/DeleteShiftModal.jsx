@@ -38,7 +38,7 @@ function DeleteShiftModal({shift}) {
       {errors.server && <p>{errors.server}</p>}
       <div className="buttons">
 
-        <button className="submit" onClick={e => handleSubmit(e)}>Yes</button>
+        <button className="submit red" onClick={e => handleSubmit(e)}>Yes</button>
         <button className="submit" onClick={()=> closeModal()}>No</button>
       </div>
       

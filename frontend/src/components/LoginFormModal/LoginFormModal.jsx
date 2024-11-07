@@ -55,13 +55,14 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h1 classname='sans'>Log In</h1>
       {errors.server && <p className="error">{errors.server}</p>}
       {errors.credential && <div className="error">{errors.credential}</div>}
       <form className="login-form" onSubmit={handleSubmit}>
         <label className="labels">
           Username or Email
           <input
+            className={errors.credential ? 'border' : null}
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -72,6 +73,7 @@ function LoginFormModal() {
         <label className="labels">
           Password
           <input
+          className={errors.credential ? 'border' : null}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -81,7 +83,7 @@ function LoginFormModal() {
         <button className="submit" type="submit">Log In</button>
         <div className="buttons">
         <button className="submit" onClick={(e) => demoLoginSupervisor(e)}>Supervisor</button>
-        <button className="submit" onClick={(e) => demoLoginEmployee(e)}>employee</button>
+        <button className="submit" onClick={(e) => demoLoginEmployee(e)}>Employee</button>
 
         </div>
         

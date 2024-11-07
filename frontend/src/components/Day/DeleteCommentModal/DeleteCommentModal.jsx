@@ -36,7 +36,7 @@ function DeleteCommentModal({comment}) {
       <h1>Delete This Comment</h1>
       <div className="buttons">
 
-        <button className='submit'  onClick={e => handleSubmit(e)}>Yes</button>
+        <button className='submit red'  onClick={e => handleSubmit(e)}>Yes</button>
         <button className="submit" onClick={() => closeModal()}>No</button>
       </div>
       

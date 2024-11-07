@@ -3,8 +3,9 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import Splash from '../components/Splash';
-
 import Day from '../components/Day/Day';
+import NotFoundPage from '../components/notFoundPage/notFoundPage';
+
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      {
+        path: '*',
+        element: <NotFoundPage />
+      }
     ],
   },
 
