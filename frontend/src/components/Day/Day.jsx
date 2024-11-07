@@ -44,10 +44,13 @@ function Day() {
 
   if (!session) {
     return (
+
       
       <div >
         <div className='background-not-logged-in'></div>
         <div className='not-logged-in'>Welcome to scheduleMe</div>
+
+
         <div className='not-logged-in'>You must be logged in to check schedules</div>
         
       </div>
