@@ -11,6 +11,15 @@
     font-size: 14pt;
     
 }
+.bigger {
+    font-size: 40px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.round {
+    border-radius: 15rem;
+}
 
 .profile-navs {
     list-style: none;

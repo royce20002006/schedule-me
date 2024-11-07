@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { getSchedulesThunk } from '../../redux/schedule';
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 
@@ -36,7 +36,7 @@ function Day() {
 
       setIsLoaded(true);
     }
-    if (!isLoaded) {
+    if (!isLoaded || id) {
       getData();
     }
 
@@ -44,6 +44,7 @@ function Day() {
 
   if (!session) {
     return (
+      
       <div >
         <div className='background-not-logged-in'></div>
         <div className='not-logged-in'>Welcome to schedule me</div>
@@ -57,12 +58,20 @@ function Day() {
   }
   return (
     <>
-
+      <ul className="profile-navs round">
+      <li>
+        <NavLink to={`/schedules/${id - 1}`}>Previous Day</NavLink>
+      </li>
+      <li>
+        <NavLink to={`/schedules/${id + 1}`}>Next Day</NavLink>
+      </li>
+      
+    </ul>
       <h1 className='heading'>Schedule for {new Date(schedule.day).toDateString()}</h1>
       {session && session.role === 'Supervisor' ?
         <div className='center-div'>
           <OpenModalButtonTwo
-            className='new-shift'
+            className='new-shif'
             buttonText='New Shift'
             modalComponent={<NewShiftModal />}
             preventDefault

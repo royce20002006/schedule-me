@@ -3,8 +3,9 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import Splash from '../components/Splash';
-
 import Day from '../components/Day/Day';
+import NotFoundPage from '../components/notFoundPage/notFoundPage';
+
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <h1 className='center'>404 Page Not Found</h1>
+        element: <NotFoundPage />
       }
     ],
   },

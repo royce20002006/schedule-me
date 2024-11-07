@@ -4,11 +4,11 @@ import "./Navigation.css";
 
 function Navigation() {
   return (
-    <ul className="profile-navs">
+    <ul className="profile-navs round">
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      <li>ScheduleMe</li>
+      <li className="bigger">ScheduleMe</li>
       <li>
         <ProfileButton className='profile-button'/>
       </li>
