@@ -71,7 +71,7 @@ function Day() {
       {session && session.role === 'Supervisor' ?
         <div className='center-div'>
           <OpenModalButtonTwo
-            className='new-shif'
+            className='new-shift'
             buttonText='New Shift'
             modalComponent={<NewShiftModal />}
             preventDefault
