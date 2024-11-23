@@ -25,11 +25,11 @@
 
 .container {
     margin-bottom: 1rem;
-    border: 1px solid blue;
+    border: 1px solid rgb(61, 61, 251);
     border-radius: 1rem;
 
     padding: 1rem;
-    box-shadow: 1px 1px 10px blue;
+    box-shadow: 1px 1px 10px rgb(44, 44, 249);
     font-size: 30px;
     gap: 5rem;
     
