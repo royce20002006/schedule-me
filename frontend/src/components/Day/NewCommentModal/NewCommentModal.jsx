@@ -93,7 +93,7 @@ useEffect(() => {
       
       <form className="form" onSubmit={handleSubmit}>
         <label className="label">
-          What do you Want to say: 
+          What would you like to say? 
           <input className="input-body"
             type="text"
             value={body}

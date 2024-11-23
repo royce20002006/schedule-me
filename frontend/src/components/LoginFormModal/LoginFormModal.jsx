@@ -82,8 +82,8 @@ function LoginFormModal() {
         </label>
         <button className="submit" type="submit">Log In</button>
         <div className="buttons">
-        <button className="submit" onClick={(e) => demoLoginSupervisor(e)}>Supervisor</button>
-        <button className="submit" onClick={(e) => demoLoginEmployee(e)}>Employee</button>
+        <button className="submit" onClick={(e) => demoLoginSupervisor(e)}>Log in as Supervisor</button>
+        <button className="submit" onClick={(e) => demoLoginEmployee(e)}>Log in as Employee</button>
 
         </div>
         
