@@ -19,6 +19,7 @@ WORKDIR /frontend
 COPY frontend/package.json .
 
 RUN npm install
+# RUN npm install @lottiefiles/dotlottie-react
 
 COPY /frontend/ .
 
