@@ -85,7 +85,7 @@ function SignupFormModal() {
         <label className="labels">
           Email
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
