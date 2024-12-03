@@ -4,7 +4,7 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import Splash from '../components/Splash';
 import Day from '../components/Day/Day';
-import NotFoundPage from '../components/notFoundPage/notFoundPage';
+import NotFoundPage from '../components/NotFoundPage/NotFoundPage';
 
 
 export const router = createBrowserRouter([
