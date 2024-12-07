@@ -13,6 +13,7 @@ import DeleteCommentModal from './DeleteCommentModal/DeleteCommentModal';
 import './Day.css'
 import OpenModalButtonTwo from '../OpenModalButtonTwo/OpenModalButtonTwo';
 import { getAllUsersThunk } from '../../redux/users';
+import OpenModalButtonThree from './OpenModalButtonThree';
 
 function Day() {
   const { id } = useParams();
@@ -114,7 +115,8 @@ function Day() {
               <div className='shift' >{<div className='big'>{`${shift.User.firstName} ${shift.User.lastName} : ${shift.startTime} -- ${shift.endTime}`}</div>}
                 {session && session.role === 'Supervisor' ?
                   <div className='buttons'>
-                    <OpenModalButton
+                    <OpenModalButtonThree
+                    className='submit red'
                       buttonText='Delete Shift'
                       modalComponent={<DeleteShiftModal shift={shift} />}
                       preventDefault
@@ -148,7 +150,7 @@ function Day() {
                   {`${comment.User.firstName} ${comment.User.lastName}: ${comment.body}`}
                   {session && session.id === comment.userId ?
                     <div className='buttons'>
-                      <OpenModalButton
+                      <OpenModalButtonThree
                         className='red'
                         buttonText='Delete'
                         preventDefault
