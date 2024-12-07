@@ -36,6 +36,7 @@
     margin-top: 1rem;
     display: flex;
     justify-content: space-evenly;
+    
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: center;
@@ -51,6 +52,7 @@
     
     width: 14rem;
     margin-bottom: 1rem;
+    border-radius: 1rem;
     border: 1px solid blue;
     padding: 1rem;
     box-shadow: 1px 1px 10px blue;
@@ -59,6 +61,16 @@
     color: black;
     
 }
+
+.container:hover {
+    
+    
+    box-shadow: 1px 1px 100px blue;
+    
+    
+}
+
+
 
 .center-div{
     display: flex;
