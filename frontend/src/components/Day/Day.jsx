@@ -83,7 +83,7 @@ function Day() {
 
       <div className='section-day'>
         {shifts.filter(shift => shift.scheduleId === schedule.id).map((shift, idx) => (
-          <div className='container' key={`${shift.id}--${idx}`}>
+          <div className='container-two' key={`${shift.id}--${idx}`}>
             <div >
               <div className='shift' >{<div className='big'>{`${shift.User.firstName} ${shift.User.lastName} : ${shift.startTime} -- ${shift.endTime}`}</div>}
                 {session && session.role === 'Supervisor' ?
@@ -118,7 +118,7 @@ function Day() {
               }
 
               <div className='comments' >{comments.filter(comment => comment.shiftId === shift.id).map((comment, idx) => (
-                <div className='container' key={`${comment.id}--${idx}`}>
+                <div className='container-two' key={`${comment.id}--${idx}`}>
                   {`${comment.User.firstName} ${comment.User.lastName}: ${comment.body}`}
                   {session && session.id === comment.userId ?
                     <div className='buttons'>
