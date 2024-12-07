@@ -17,13 +17,14 @@
    
 }
 
+
 .shift {
     padding-bottom: 1rem;
     
     border-bottom: 3px solid rgb(71, 133, 208);
 }
 
-.container {
+.container-two {
     margin-bottom: 1rem;
     border: 1px solid rgb(61, 61, 251);
     border-radius: 1rem;
