@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import { getSchedulesThunk } from '../../redux/schedule';
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 
@@ -13,6 +13,7 @@ import DeleteCommentModal from './DeleteCommentModal/DeleteCommentModal';
 import './Day.css'
 import OpenModalButtonTwo from '../OpenModalButtonTwo/OpenModalButtonTwo';
 import { getAllUsersThunk } from '../../redux/users';
+
 function Day() {
   const { id } = useParams();
   const schedule = useSelector(state => state.scheduleState.byId[id])
@@ -21,6 +22,7 @@ function Day() {
   const shifts = useSelector(state => state.shiftState.allShifts);
   const comments = useSelector(state => state.commentState.allComments);
   const session = useSelector(state => state.session.user);
+  const Navigate = useNavigate()
 
   useEffect(() => {
     //grab data
@@ -42,6 +44,17 @@ function Day() {
 
   }, [dispatch, isLoaded, session, id])
 
+  let previousDay = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (id > 1) {
+      Navigate(`/schedules/${id - 1}`)
+      
+    } else {
+      alert('This is the first Day')
+    }
+  }
+
   if (!session) {
     return (
 
@@ -61,7 +74,7 @@ function Day() {
     <>
       <ul className="profile-navs round">
       <li>
-        <NavLink to={`/schedules/${id - 1}`}>Previous Day</NavLink>
+        <button onClick={(e) => previousDay(e)} className='submit'>Previous Day</button>
       </li>
       <li>
         <NavLink to={`/schedules/${id + 1}`}>Next Day</NavLink>
