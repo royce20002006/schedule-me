@@ -17,6 +17,7 @@ import { getAllUsersThunk } from '../../redux/users';
 function Day() {
   const { id } = useParams();
   const schedule = useSelector(state => state.scheduleState.byId[id])
+  const schedules = useSelector(state => state.scheduleState.allSchedules)
   const dispatch = useDispatch()
   const [isLoaded, setIsLoaded] = useState()
   const shifts = useSelector(state => state.shiftState.allShifts);
@@ -55,6 +56,18 @@ function Day() {
     }
   }
 
+  let nextDay = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (parseInt(id) ===  schedules.length) {
+      alert('This is the last Day')
+      
+      
+    } else {
+      Navigate(`/schedules/${parseInt(id) + 1}`)
+    }
+  }
+
   if (!session) {
     return (
 
@@ -77,7 +90,7 @@ function Day() {
         <button onClick={(e) => previousDay(e)} className='submit'>Previous Day</button>
       </li>
       <li>
-        <NavLink to={`/schedules/${id + 1}`}>Next Day</NavLink>
+        <button className='submit' onClick={(e) => nextDay(e)}>Next Day</button>
       </li>
       
     </ul>
